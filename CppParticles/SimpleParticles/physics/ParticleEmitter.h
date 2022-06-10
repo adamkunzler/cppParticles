@@ -15,6 +15,9 @@ struct ParticleEmitterSettings
 	float ANGLE_OFFSET{ PI / 4.f };
 	int EMIT_SPEED{ 50 };
 	bool RENDER_AS_TEXTURE{ false };
+	float BASE_COLOR[3]{ 1.f, 1.f, 1.f };
+	int TRANSPARENCY{ 100 };
+	
 };
 
 class ParticleEmitter
@@ -113,9 +116,12 @@ public:
 
 		for (const auto p : _particles)
 		{
-			auto ratio = static_cast<uint8_t>((p->lifetime() / _settings.MAX_LIFETIME) * 255.f);
-			sf::Uint8 val{ ratio };
-			sf::Color color{ val, val, val, 100 };
+			auto ratio = p->lifetime() / _settings.MAX_LIFETIME;
+			sf::Uint8 red{ static_cast<uint8_t>(_settings.BASE_COLOR[0] * 255 * ratio) };
+			sf::Uint8 green{ static_cast<uint8_t>(_settings.BASE_COLOR[1] * 255 * ratio) };
+			sf::Uint8 blue{ static_cast<uint8_t>(_settings.BASE_COLOR[2] * 255 * ratio) };
+			sf::Uint8 alpha{ static_cast<uint8_t>(_settings.TRANSPARENCY) };
+			sf::Color color{ red, green, blue, alpha };
 
 			float x{ p->position().x };
 			float y{ p->position().y };
@@ -159,7 +165,7 @@ public:
 
 		_texture.display();
 		_sprite.setTexture(_texture.getTexture());
-		
+
 		window.draw(_sprite, windowRenderState);
 	}
 
@@ -176,7 +182,9 @@ public:
 		ImGui::SliderFloat("Target Angle", &_settings.TARGET_ANGLE, 0.f, _settings.PI * 2.f);
 		ImGui::SliderFloat("Angle Offset", &_settings.ANGLE_OFFSET, 0.f, _settings.PI * 2.f);
 		ImGui::SliderInt("Emit Speed", &_settings.EMIT_SPEED, 0, 100);
-		ImGui::Checkbox("Render as Texture", &_settings.RENDER_AS_TEXTURE);
+		ImGui::Checkbox("Render as Texture", &_settings.RENDER_AS_TEXTURE);		
+		ImGui::SliderInt("Transparency", &_settings.TRANSPARENCY, 0, 255);
+		ImGui::ColorEdit3("Color", _settings.BASE_COLOR);
 		ImGui::End();
 	}
 };
