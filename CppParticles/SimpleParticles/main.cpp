@@ -15,7 +15,6 @@
 #include "BaseScene.h"
 
 #include "TestScene.h"
-#include "StarFieldScene.h"
 #include "ParticleScene.h"
 
 void showInfoOverlay(const std::vector<std::string>&);

@@ -111,7 +111,7 @@
     <ClInclude Include="imgui\imstb_truetype.h" />
     <ClInclude Include="ParticleScene.h" />
     <ClInclude Include="physics\Particle.h" />
-    <ClInclude Include="StarFieldScene.h" />
+    <ClInclude Include="physics\ParticleEmitter.h" />
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="utils\Math.h" />
     <ClInclude Include="utils\RandomGenerator.h" />
