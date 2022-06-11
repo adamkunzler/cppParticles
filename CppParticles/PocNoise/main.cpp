@@ -15,7 +15,6 @@
 #include "BaseScene.h"
 
 #include "TestScene.h"
-#include "ParticleScene.h"
 
 void showInfoOverlay(const std::vector<std::string>&);
 
@@ -23,9 +22,8 @@ int main()
 {    
 	auto start = std::chrono::steady_clock::now();
 
-    //TestScene scene{ 1024, 1024, "SFML Static" };	
-	ParticleScene scene{ 2000, 1800, ".: SFML Particles :." };
-
+    TestScene scene{ 1024, 1024, "SFML Static" };	
+	
     ImGui::SFML::Init(scene.getWindow());
 	bool showImGuiDemo = false;
     

@@ -4,6 +4,8 @@ VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SimpleParticles", "SimpleParticles\SimpleParticles.vcxproj", "{67545F79-1BC1-46E2-B6E6-0EA55F6B2AF5}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PocNoise", "PocNoise\PocNoise.vcxproj", "{3DA89286-4BD4-461C-8321-A539C258A7CB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -20,6 +22,14 @@ Global
 		{67545F79-1BC1-46E2-B6E6-0EA55F6B2AF5}.Release|x64.Build.0 = Release|x64
 		{67545F79-1BC1-46E2-B6E6-0EA55F6B2AF5}.Release|x86.ActiveCfg = Release|x64
 		{67545F79-1BC1-46E2-B6E6-0EA55F6B2AF5}.Release|x86.Build.0 = Release|x64
+		{3DA89286-4BD4-461C-8321-A539C258A7CB}.Debug|x64.ActiveCfg = Debug|x64
+		{3DA89286-4BD4-461C-8321-A539C258A7CB}.Debug|x64.Build.0 = Debug|x64
+		{3DA89286-4BD4-461C-8321-A539C258A7CB}.Debug|x86.ActiveCfg = Debug|x64
+		{3DA89286-4BD4-461C-8321-A539C258A7CB}.Debug|x86.Build.0 = Debug|x64
+		{3DA89286-4BD4-461C-8321-A539C258A7CB}.Release|x64.ActiveCfg = Release|x64
+		{3DA89286-4BD4-461C-8321-A539C258A7CB}.Release|x64.Build.0 = Release|x64
+		{3DA89286-4BD4-461C-8321-A539C258A7CB}.Release|x86.ActiveCfg = Release|x64
+		{3DA89286-4BD4-461C-8321-A539C258A7CB}.Release|x86.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="imgui\imgui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -36,14 +33,11 @@
     <ClCompile Include="imgui\imgui-SFML.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BaseScene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TestScene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="utils\RandomGenerator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -80,25 +74,17 @@
     <ClInclude Include="utils\time.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ParticleScene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="physics\Particle.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="physics\ParticleEmitter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="utils\SimplexNoise.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TestScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Font Include="assets\CourierPrime-Regular.ttf" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="assets\smoke.png">
-      <Filter>Resource Files</Filter>
-    </Image>
   </ItemGroup>
 </Project>

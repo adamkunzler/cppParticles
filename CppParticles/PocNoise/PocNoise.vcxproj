@@ -13,8 +13,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{67545f79-1bc1-46e2-b6e6-0ea55f6b2af5}</ProjectGuid>
-    <RootNamespace>SimpleParticles</RootNamespace>
+    <ProjectGuid>{3DA89286-4BD4-461C-8321-A539C258A7CB}</ProjectGuid>
+    <RootNamespace>PocNoise</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -109,9 +109,6 @@
     <ClInclude Include="imgui\imstb_rectpack.h" />
     <ClInclude Include="imgui\imstb_textedit.h" />
     <ClInclude Include="imgui\imstb_truetype.h" />
-    <ClInclude Include="ParticleScene.h" />
-    <ClInclude Include="physics\Particle.h" />
-    <ClInclude Include="physics\ParticleEmitter.h" />
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="utils\Math.h" />
     <ClInclude Include="utils\RandomGenerator.h" />
@@ -122,9 +119,6 @@
     <Font Include="assets\CourierPrime-Regular.ttf">
       <DeploymentContent>true</DeploymentContent>
     </Font>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="assets\smoke.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
