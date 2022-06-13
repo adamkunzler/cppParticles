@@ -74,13 +74,16 @@
     <ClInclude Include="utils\time.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="utils\SimplexNoise.h">
+    <ClInclude Include="noise\SimplexNoise.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TestScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BaseScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\NoiseTextureHelper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

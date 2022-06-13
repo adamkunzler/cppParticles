@@ -109,10 +109,11 @@
     <ClInclude Include="imgui\imstb_rectpack.h" />
     <ClInclude Include="imgui\imstb_textedit.h" />
     <ClInclude Include="imgui\imstb_truetype.h" />
+    <ClInclude Include="noise\NoiseTextureHelper.h" />
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="utils\Math.h" />
     <ClInclude Include="utils\RandomGenerator.h" />
-    <ClInclude Include="utils\SimplexNoise.h" />
+    <ClInclude Include="noise\SimplexNoise.h" />
     <ClInclude Include="utils\time.h" />
   </ItemGroup>
   <ItemGroup>

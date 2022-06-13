@@ -1,115 +1,125 @@
 #pragma once
 
-#include "utils/SimplexNoise.h"
+#include "noise/SimplexNoise.h"
+#include "noise/NoiseTextureHelper.h"
 
 class BaseScene;
 
 class TestScene : public BaseScene
 {
-private:	
-	sf::RenderTexture _texture;
-	sf::Sprite _sprite;
-	sf::VertexArray _gfxPixels;
-	
-	sf::Image _theNoise;
-	sf::Sprite _spriteNoise;
-	sf::Texture _textureNoise;
-		
+private:
+	NoiseTextureHelper _noiseTextureHelper;
+
+	sf::Image _noiseImage;
+	sf::Sprite _noiseSprite;
+	sf::Texture _noiseTexture;
+
+	int dim{ 256 };
+	float scale{ 1024.f / (float)dim };
+
+	int dimWidth{ dim };
+	int dimHeight{ dim };
+
+	NoiseSettings _settings;
+
+	bool _canDragMap{ true };
+	bool _mouseIsDown{ false };
+	sf::Vector2f _mouseMovePosition;
+
+	void generateNoiseTexture()
+	{
+		_noiseTextureHelper.generate(_noiseImage, _noiseTexture, dimWidth, dimHeight, _settings);
+	}
+
 public:
 	TestScene(int width, int height, std::string title)
 		:BaseScene{ width, height, title }
-	{		
-		if (!_texture.create(width, height))
-			std::cout << "Failed to create _texture!" << std::endl;
-
-		_gfxPixels.setPrimitiveType(sf::Quads);
-
-		sf::Clock clock;
-		OpenSimplexNoise noise{ 0 };
-		const int dim = 512;
-		std::vector<double> noiseMap(dim * dim);	
-		sf::Uint8* pixels = new sf::Uint8[dim * dim * 4];
-		double scale = 0.03;
-		for (int y = 0; y < dim; ++y)
-		{			
-			for (int x = 0; x < dim; ++x)
-			{
-				auto n = noise.eval(x * scale, y * scale);
-				noiseMap.push_back(n);
-
-				sf::Uint8 val = static_cast<sf::Uint8>(mapRange(n, -1, 1, 0, 255));
-
-				int index = 4 * (x * dim + y);
-				pixels[index] = val; // red
-				pixels[index + 1] = val; // green
-				pixels[index + 2] = val; // blue
-				pixels[index + 3] = 255; // alpha
-			}
-		}
-
-		if (!_textureNoise.create(dim, dim))
+	{
+		if (!_noiseTexture.create(dimWidth, dimHeight))
 			std::cout << "Failed to create noise texture!" << std::endl;
 
-		//_theNoise.create(dim, dim, pixels); // create the image from pixel data
-		_textureNoise.update(pixels); // create texture from image
-		_spriteNoise.setTexture(_textureNoise); // create the sprite from the texture
+		_noiseSprite.setTexture(_noiseTexture);
 
-		_spriteNoise.setPosition(100, 100);
-		
-		delete[] pixels;
+		_noiseImage.create(dimWidth, dimHeight, sf::Color::Black);
 
-		sf::Time elapsed = clock.restart();
-		std::cout << "noise gen took " << elapsed.asMilliseconds() << " ms." << std::endl;
-	}	
+		generateNoiseTexture();
+
+		//_noiseSprite.setPosition(100, 100);
+		_noiseSprite.setScale(scale, scale);
+	}
 
 	void processSceneEvents(const sf::Event& event)
 	{
-		if (event.type == sf::Event::KeyPressed)
+		if (event.type == sf::Event::MouseButtonPressed)
 		{
-			if (event.key.code == sf::Keyboard::Space)
-			{
-				std::cout << "Spacebar Pressed: " << event.key.code << std::endl;
-			}			
+			_mouseIsDown = true;
+			_mouseMovePosition.x = mousePosition().x;
+			_mouseMovePosition.y = mousePosition().y;
 		}
-
-		if (event.type == sf::Event::MouseMoved)
+		else if (event.type == sf::Event::MouseButtonReleased)
 		{
-			/*std::cout << "Mouse X: " << event.mouseMove.x << std::endl;
-			std::cout << "Mouse Y: " << event.mouseMove.y << std::endl;*/
+			_mouseIsDown = false;
+		}
+		else if (event.type == sf::Event::MouseMoved)
+		{
+			if (!_canDragMap) return;
+			if (!_mouseIsDown) return;
+
+			float dx = (_mouseMovePosition.x - (float)event.mouseMove.x) / scale;
+			float dy = (_mouseMovePosition.y - (float)event.mouseMove.y) / scale;
+
+			_settings.xPosition += dx;
+			_settings.yPosition += dy;
+
+			_mouseMovePosition.x = event.mouseMove.x;
+			_mouseMovePosition.y = event.mouseMove.y;
+
+			//std::cout << "dx, dy: " << dx << ", " << dy << std::endl;
+		}
+		else if (event.type == sf::Event::MouseWheelScrolled)
+		{
+			if (event.mouseWheelScroll.delta > 0)
+			{
+				_settings.zoom += 0.1f;
+			}
+			else if (event.mouseWheelScroll.delta < 0)
+			{
+				_settings.zoom -= 0.1f;
+				if (_settings.zoom < 1.f) _settings.zoom = 1.f;
+			}
 		}
 	}
 
 	void updateScene(sf::Time elapsed) override
 	{
-		
+		generateNoiseTexture();
 	}
 
 	void drawScene(sf::Time elapsed) override
-	{				
-		//_texture.clear();
-
-		//// begin - "draw" the texture
-		//_gfxPixels.clear();		
-		//sf::Vertex v1{ sf::Vector2f{100.0f, 100.0f} };
-		//sf::Vertex v2{ sf::Vector2f{200.0f, 100.0f} };
-		//sf::Vertex v3{ sf::Vector2f{200.0f, 200.0f} };
-		//sf::Vertex v4{ sf::Vector2f{100.0f, 200.0f} };
-		//_gfxPixels.append(v1); _gfxPixels.append(v2); _gfxPixels.append(v3); _gfxPixels.append(v4);		
-		//// end - "draw" the texture
-
-		//_texture.draw(_gfxPixels);
-		//_texture.display();
-		//_sprite.setTexture(_texture.getTexture());
-		
-		window.draw(_spriteNoise);
-
-		//window.draw(shape);
+	{
+		window.draw(_noiseSprite);
 	}
 
 	std::vector<std::string> getOverlayMessages()
 	{
 		std::vector<std::string> msg;
-		
+
 		return msg;
+	}
+
+	void customImGui() override
+	{
+		std::string imguiTitle = "Settings";
+		ImGui::Begin(imguiTitle.c_str());
+		ImGui::SetWindowSize("Settings", ImVec2{ 500, 250 });
+
+		ImGui::SliderInt("Octaves", &_settings.octaves, 1, 6);
+		ImGui::SliderFloat("Frequency", &_settings.frequency, 1.f, 10.f);
+		ImGui::SliderFloat("Redistribution", &_settings.redistribution, 0.01f, 10.f);
+		ImGui::SliderFloat("Zoom", &_settings.zoom, 1.0f, 100.f);
+		ImGui::Checkbox("Drag Map", &_canDragMap);
+		ImGui::SliderFloat("Sclae", &_settings.scale, 0.001f, 0.02f);
+
+		ImGui::End();
 	}
 };

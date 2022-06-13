@@ -16,6 +16,11 @@ protected:
 	virtual void drawScene(sf::Time elapsed) = 0;
 	virtual void updateScene(sf::Time elapsed) = 0;
 	virtual void processSceneEvents(const sf::Event& event) = 0;	
+	
+	sf::Vector2f mousePosition() 
+	{
+		return sf::Vector2f{ (float)sf::Mouse::getPosition(window).x, (float)sf::Mouse::getPosition(window).y };
+	}
 
 public:
 	virtual std::vector<std::string> getOverlayMessages() = 0;
